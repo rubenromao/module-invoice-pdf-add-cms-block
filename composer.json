@@ -1,0 +1,22 @@
+{
+    "name": "rubenromao/module-invoice-pdf-add-cms-block",
+    "description": "Magento 2 extension to have a CMS block displayed on the bottom of the invoice PDF. The CMS Block will contain a simple message: \"Thank you for buying from us\".",
+    "type": "magento2-module",
+    "repositories": {
+        "magento": {
+            "type": "composer",
+            "url": "https://repo.magento.com/"
+        }
+    },
+    "require": {
+        "magento/framework": "^103.0.3"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "RubenRomao\\InvoicePDFAddCMSBlock\\": ""
+        }
+    }
+}
