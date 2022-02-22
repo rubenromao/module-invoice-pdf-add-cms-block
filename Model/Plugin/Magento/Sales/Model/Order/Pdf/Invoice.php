@@ -7,7 +7,7 @@ declare(strict_types=1);
 
 namespace RubenRomao\InvoicePDFAddCMSBlock\Model\Plugin\Magento\Sales\Model\Order\Pdf;
 
-use Magento\Sales\Model\Order\Pdf\Invoice;
+use Magento\Sales\Model\Order\Pdf\Invoice as CorePdfInvoice;
 
 /**
  * Plugin to add CMS block text to the invoice PDF.
