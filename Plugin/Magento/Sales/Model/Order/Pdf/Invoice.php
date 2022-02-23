@@ -52,7 +52,7 @@ class Invoice
         $page = end($result->pages);
 
         try {
-            // draw pdf footer
+            // add text to the bottom of the invoice
             $this->helper->drawFooter($subject, $page);
         } catch (Exception $e) {
             $this->logger->critical($e);

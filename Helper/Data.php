@@ -16,10 +16,7 @@ use Magento\Sales\Model\Order\Pdf\Invoice;
 use Psr\Log\LoggerInterface;
 use Zend_Pdf_Color_GrayScale;
 use Zend_Pdf_Color_RGB;
-use Zend_Pdf_Exception;
-use Zend_Pdf_Font;
 use Zend_Pdf_Page;
-use Zend_Pdf_Resource_Font;
 
 /**
  * Create the PDF footer layout
@@ -80,7 +77,6 @@ class Data extends AbstractHelper
         try {
             $invoice->y -= 10;
             $page->setFillColor(new Zend_Pdf_Color_RGB(0, 0, 0));
-            $page->setLineColor(new Zend_Pdf_Color_GrayScale(0.5));
             $page->drawLine(25, $invoice->y - 20, 570, $invoice->y - 20);
             $page->drawText($this->getFooterContent(), 180, $invoice->y - 50, 'UTF-8');
             $page->setFillColor(new Zend_Pdf_Color_GrayScale(0));
@@ -95,8 +91,9 @@ class Data extends AbstractHelper
      */
     public function getFooterContent(): string
     {
-        return $this->layout
+        return strip_tags($this->layout
             ->createBlock('Magento\Cms\Block\Block')
-            ->setBlockId('invoice_pdf_add_cms_block_with_text')->toHtml();
+            ->setBlockId('invoice_pdf_add_cms_block_with_text')->toHtml()
+        );
     }
 }
