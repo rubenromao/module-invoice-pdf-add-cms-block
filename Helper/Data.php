@@ -14,12 +14,6 @@ use Magento\Framework\Filesystem;
 use Magento\Framework\View\LayoutInterface;
 use Magento\Sales\Model\Order\Pdf\Invoice;
 use Psr\Log\LoggerInterface;
-use Zend_Pdf_Color_GrayScale;
-use Zend_Pdf_Color_RGB;
-use Zend_Pdf_Exception;
-use Zend_Pdf_Font;
-use Zend_Pdf_Page;
-use Zend_Pdf_Resource_Font;
 
 /**
  * Create the PDF footer layout
@@ -69,22 +63,20 @@ class Data extends AbstractHelper
         parent::__construct($context);
     }
 
-
     /**
      * @param Invoice $invoice
      * @param Zend_Pdf_Page $page
      * @return void
      */
-    public function drawFooter(Invoice $invoice, Zend_Pdf_Page $page): void
+    public function drawFooter(Invoice $invoice, \Zend_Pdf_Page $page): void
     {
         try {
-            #$this->_setFontRegular($page, 20);
             $invoice->y -= 10;
-            $page->setFillColor(new Zend_Pdf_Color_RGB(0, 0, 0));
-            $page->setLineColor(new Zend_Pdf_Color_GrayScale(0.5));
+            $page->setFillColor(new \Zend_Pdf_Color_RGB(0, 0, 0));
+            $page->setLineColor(new \Zend_Pdf_Color_GrayScale(0.5));
             $page->drawLine(25, $invoice->y - 20, 570, $invoice->y - 20);
             $page->drawText($this->getFooterContent(), 180, $invoice->y - 50, 'UTF-8');
-            $page->setFillColor(new Zend_Pdf_Color_GrayScale(0));
+            $page->setFillColor(new \Zend_Pdf_Color_GrayScale(0));
 
             $invoice->y -= 20;
         } catch (\Exception $e) {
@@ -93,28 +85,12 @@ class Data extends AbstractHelper
     }
 
     /**
-     * @param Zend_Pdf_Page $object
-     * @param int $size
-     * @return Zend_Pdf_Resource_Font
-     * @throws  Zend_Pdf_Exception
-     */
-    private function _setFontRegular(Zend_Pdf_Page $object, int $size = 7): Zend_Pdf_Resource_Font
-    {
-        $font = Zend_Pdf_Font::fontWithPath(
-            $this->rootDirectory->getAbsolutePath('lib/internal/LinLibertineFont/LinLibertine_Re-4.4.1.ttf')
-        );
-        $object->setFont($font, $size);
-        return $font;
-    }
-
-    /**
      * @return string
      */
     public function getFooterContent(): string
     {
-        return strip_tags($this->layout
+        return $this->layout
             ->createBlock('Magento\Cms\Block\Block')
-            ->setBlockId('invoice_pdf_add_cms_block_with_text')->toHtml()
-        );
+            ->setBlockId('invoice_pdf_add_cms_block_with_text')->toHtml();
     }
 }
