@@ -16,9 +16,9 @@ use Magento\Store\Model\Store;
 use Psr\Log\LoggerInterface;
 
 /**
- * Create cms block
+ * Create cms block to be added to the footer of the invoice.
  */
-class createCmsBlock implements DataPatchInterface, PatchVersionInterface
+class CreateCmsBlock implements DataPatchInterface, PatchVersionInterface
 {
     /**
      * @var Block

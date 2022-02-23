@@ -65,23 +65,32 @@ class Data extends AbstractHelper
 
     /**
      * @param Invoice $invoice
-     * @param Zend_Pdf_Page $page
+     * @param \Zend_Pdf_Page $page
      * @return void
      */
     public function drawFooter(Invoice $invoice, \Zend_Pdf_Page $page): void
     {
         try {
+            $this->_setFontRegular($page, 20);
             $invoice->y -= 10;
             $page->setFillColor(new \Zend_Pdf_Color_RGB(0, 0, 0));
             $page->setLineColor(new \Zend_Pdf_Color_GrayScale(0.5));
             $page->drawLine(25, $invoice->y - 20, 570, $invoice->y - 20);
             $page->drawText($this->getFooterContent(), 180, $invoice->y - 50, 'UTF-8');
             $page->setFillColor(new \Zend_Pdf_Color_GrayScale(0));
-
             $invoice->y -= 20;
         } catch (\Exception $e) {
             $this->logger->critical($e);
         }
+    }
+
+    private function _setFontRegular(\Zend_Pdf_Page $object, int $size = 7)
+    {
+        $font = \Zend_Pdf_Font::fontWithPath(
+            $this->rootDirectory->getAbsolutePath('lib/internal/LinLibertineFont/LinLibertine_Re-4.4.1.ttf')
+        );
+        $object->setFont($font, $size);
+        return $font;
     }
 
     /**
@@ -90,7 +99,7 @@ class Data extends AbstractHelper
     public function getFooterContent(): string
     {
         return $this->layout
-            ->createBlock('Magento\Cms\Block\Block')
+            ->createBlock(Magento\Cms\Block\Block::class)
             ->setBlockId('invoice_pdf_add_cms_block_with_text')->toHtml();
     }
 }
