@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <type name="Magento\Sales\Model\Order\Pdf\Invoice">
-        <plugin name="plugin_to_add_text_to_the_bottom_of_the_invoice_pdf" type="RubenRomao\InvoicePDFAddCMSBlock\Model\Plugin\Magento\Sales\Model\Order\Pdf\Invoice" />
+        <plugin name="plugin_to_add_text_to_the_bottom_of_the_invoice_pdf" type="RubenRomao\InvoicePdfAddCmsBlock\Plugin\Magento\Sales\Model\Order\Pdf\Invoice" />
     </type>
 </config>
