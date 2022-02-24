@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## v2.0.0 - 2022-02-23
+
+- bump module and respective composer.json to version to 2.0.0
+- more comments have been added to explain my reasoning and thoughts
+- removal of the Helper and needed methods placed in the Plugin Invoice class
+- bug fix where the Block class name resolution wasn't in string literal using the ::class keyword, but it had a missing backslash 
 
 ## v1.0.1 - 2022-02-23
 

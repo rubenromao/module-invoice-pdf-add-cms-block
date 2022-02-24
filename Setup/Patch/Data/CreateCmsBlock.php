@@ -7,7 +7,6 @@ declare(strict_types=1);
 
 namespace RubenRomao\InvoicePdfAddCmsBlock\Setup\Patch\Data;
 
-use Exception;
 use Magento\Cms\Model\Block;
 use Magento\Cms\Model\ResourceModel\Block\CollectionFactory;
 use Magento\Framework\Setup\Patch\DataPatchInterface;
@@ -16,7 +15,7 @@ use Magento\Store\Model\Store;
 use Psr\Log\LoggerInterface;
 
 /**
- * Create cms block to be added to the footer of the invoice.
+ * Create cms block to be added to the bottom of the invoice.
  */
 class CreateCmsBlock implements DataPatchInterface, PatchVersionInterface
 {
@@ -26,29 +25,21 @@ class CreateCmsBlock implements DataPatchInterface, PatchVersionInterface
     private $blockModel;
 
     /**
-     * @var CollectionFactory
-     */
-    private $blockFactory;
-
-    /**
      * @var LoggerInterface
      */
     private $logger;
 
     /**
-     * InstallData constructor.
+     * CreateCmsBlock constructor.
      *
      * @param Block $blockModel
-     * @param CollectionFactory $blockFactory
      * @param LoggerInterface $logger
      */
     public function __construct(
         Block $blockModel,
-        CollectionFactory $blockFactory,
         LoggerInterface $logger
     ) {
         $this->blockModel = $blockModel;
-        $this->blockFactory = $blockFactory;
         $this->logger = $logger;
     }
 
@@ -65,7 +56,7 @@ class CreateCmsBlock implements DataPatchInterface, PatchVersionInterface
      */
     public static function getVersion()
     {
-        return '1.0.0';
+        return '2.0.0';
     }
 
     /**
@@ -91,7 +82,7 @@ class CreateCmsBlock implements DataPatchInterface, PatchVersionInterface
      */
     public function createCmsBlock(): void
     {
-        $content = 'Thank you for buying from us';
+        $content = 'Thank you for buying from us!';
         $identifier = 'invoice_pdf_add_cms_block_with_text';
         $title = 'PDF Invoice Bottom Text';
 
@@ -104,7 +95,7 @@ class CreateCmsBlock implements DataPatchInterface, PatchVersionInterface
             $model->setContent($content);
             $model->setIsActive(1);
             $model->save();
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->logger->critical($e);
         }
     }
